@@ -131,7 +131,7 @@ DEFINE_SSE_FILLRECT(2, Uint16)
 DEFINE_SSE_FILLRECT(4, Uint32)
 
 /* *INDENT-ON* */ // clang-format on
-#endif            // __SSE__
+#endif            // SDL_SSE_INTRINSICS
 
 #ifdef SDL_LSX_INTRINSICS
 /* *INDENT-OFF* */ // clang-format off

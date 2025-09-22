@@ -51,9 +51,9 @@ struct SDL_PrivateAudioData
 //#define LOGV(...)  __android_log_print(ANDROID_LOG_VERBOSE,LOG_TAG,__VA_ARGS__)
 #define LOGV(...)
 #else
-#define LOGE(...)
-#define LOGI(...)
-#define LOGV(...)
+#define LOGE(...) do {} while(false)
+#define LOGI(...) do {} while(false)
+#define LOGV(...) do {} while(false)
 #endif
 
 /*

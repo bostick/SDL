@@ -600,6 +600,8 @@ void checkJNIReady(void)
 // Get SDL version -- called before SDL_main() to verify JNI bindings
 JNIEXPORT jstring JNICALL SDL_JAVA_INTERFACE(nativeGetVersion)(JNIEnv *env, jclass cls)
 {
+    (void)cls;
+
     char version[128];
 
     SDL_snprintf(version, sizeof(version), "%d.%d.%d", SDL_MAJOR_VERSION, SDL_MINOR_VERSION, SDL_MICRO_VERSION);
@@ -778,6 +780,9 @@ static bool allow_recreate_activity_set;
 JNIEXPORT int JNICALL SDL_JAVA_INTERFACE(nativeCheckSDLThreadCounter)(
     JNIEnv *env, jclass jcls)
 {
+    (void)env;
+    (void)jcls;
+
     int tmp = run_count;
     run_count += 1;
     return tmp;
@@ -1059,6 +1064,9 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(nativeSetNaturalOrientation)(
     JNIEnv *env, jclass jcls,
     jint orientation)
 {
+    (void)env;
+    (void)jcls;
+
     displayNaturalOrientation = (SDL_DisplayOrientation)orientation;
 }
 
@@ -1066,6 +1074,9 @@ JNIEXPORT void JNICALL SDL_JAVA_INTERFACE(onNativeRotationChanged)(
     JNIEnv *env, jclass jcls,
     jint rotation)
 {
+    (void)env;
+    (void)jcls;
+
     SDL_LockMutex(Android_ActivityMutex);
 
     if (displayNaturalOrientation == SDL_ORIENTATION_LANDSCAPE) {
@@ -1175,6 +1186,9 @@ JNIEXPORT void JNICALL SDL_JAVA_CONTROLLER_INTERFACE(onNativeJoy)(
     JNIEnv *env, jclass jcls,
     jint device_id, jint axis, jfloat value)
 {
+    (void)env;
+    (void)jcls;
+
 #ifdef SDL_JOYSTICK_ANDROID
     Android_OnJoy(device_id, axis, value);
 #endif // SDL_JOYSTICK_ANDROID
@@ -1211,6 +1225,9 @@ JNIEXPORT void JNICALL SDL_JAVA_CONTROLLER_INTERFACE(nativeRemoveJoystick)(
     JNIEnv *env, jclass jcls,
     jint device_id)
 {
+    (void)env;
+    (void)jcls;
+
 #ifdef SDL_JOYSTICK_ANDROID
     Android_RemoveJoystick(device_id);
 #endif // SDL_JOYSTICK_ANDROID
@@ -1219,6 +1236,8 @@ JNIEXPORT void JNICALL SDL_JAVA_CONTROLLER_INTERFACE(nativeRemoveJoystick)(
 JNIEXPORT void JNICALL SDL_JAVA_CONTROLLER_INTERFACE(nativeAddHaptic)(
     JNIEnv *env, jclass jcls, jint device_id, jstring device_name)
 {
+    (void)jcls;
+
 #ifdef SDL_HAPTIC_ANDROID
     const char *name = (*env)->GetStringUTFChars(env, device_name, NULL);
 
