@@ -202,12 +202,12 @@ bool SDL_IsDeXMode(void)
     return false;
 }
 
-SDL_DECLSPEC Sint32 SDLCALL JNI_OnLoad(void *vm, void *reserved);
-Sint32 JNI_OnLoad(void *vm, void *reserved)
-{
-    (void)vm;
-    (void)reserved;
-    SDL_Unsupported();
-    return -1; // JNI_ERR
-}
+// SDL_DECLSPEC Sint32 SDLCALL JNI_OnLoad(void *vm, void *reserved);
+// Sint32 JNI_OnLoad(void *vm, void *reserved)
+// {
+//     (void)vm;
+//     (void)reserved;
+//     SDL_Unsupported();
+//     return -1; // JNI_ERR
+// }
 #endif
