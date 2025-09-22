@@ -374,12 +374,12 @@
  * placed in the top byte. This is the format used for RLE with alpha.
  */
 #define RLEPIXEL_FROM_RGBA(Pixel, fmt, r, g, b, a)   \
-    {                                                \
+    do {                                                \
         Pixel = ((r >> (8 - fmt->Rbits)) << fmt->Rshift) | \
                 ((g >> (8 - fmt->Gbits)) << fmt->Gshift) | \
                 ((b >> (8 - fmt->Bbits)) << fmt->Bshift) | \
                 (a << 24);                           \
-    }
+    } while(false)
 
 /*
  * This takes care of the case when the surface is clipped on the left and/or
@@ -471,7 +471,7 @@ static bool SDLCALL SDL_RLEBlit(SDL_Surface *surf_src, const SDL_Rect *srcrect,
         if (vskip) {
 
 #define RLESKIP(bpp, Type)          \
-    for (;;) {                      \
+    do for (;;) {                      \
         int run;                    \
         ofs += *(Type *)srcbuf;     \
         run = ((Type *)srcbuf)[1];  \
@@ -486,7 +486,7 @@ static bool SDLCALL SDL_RLEBlit(SDL_Surface *surf_src, const SDL_Rect *srcrect,
             if (!--vskip)           \
                 break;              \
         }                           \
-    }
+    } while(false)
 
             switch (surf_src->fmt->bytes_per_pixel) {
             case 1:
@@ -1077,7 +1077,7 @@ static bool RLEAlphaSurface(SDL_Surface *surface)
 
         // opaque counts are 8 or 16 bits, depending on target depth
 #define ADD_OPAQUE_COUNTS(n, m)           \
-    if (df->bytes_per_pixel == 4) {         \
+    do { if (df->bytes_per_pixel == 4) {         \
         ((Uint16 *)dst)[0] = (Uint16)n;   \
         ((Uint16 *)dst)[1] = (Uint16)m;   \
         dst += 4;                         \
@@ -1085,7 +1085,7 @@ static bool RLEAlphaSurface(SDL_Surface *surface)
         dst[0] = (Uint8)n;                \
         dst[1] = (Uint8)m;                \
         dst += 2;                         \
-    }
+    } } while(false)
 
         // translucent counts are always 16 bit
 #define ADD_TRANSL_COUNTS(n, m) \
@@ -1289,7 +1289,7 @@ static bool RLEColorkeySurface(SDL_Surface *surface)
     h = surface->h;
 
 #define ADD_COUNTS(n, m)                \
-    if (bpp == 4) {                     \
+    do { if (bpp == 4) {                     \
         ((Uint16 *)dst)[0] = (Uint16)n; \
         ((Uint16 *)dst)[1] = (Uint16)m; \
         dst += 4;                       \
@@ -1297,7 +1297,7 @@ static bool RLEColorkeySurface(SDL_Surface *surface)
         dst[0] = (Uint8)n;              \
         dst[1] = (Uint8)m;              \
         dst += 2;                       \
-    }
+    } } while(false)
 
     for (y = 0; y < h; y++) {
         int x = 0;

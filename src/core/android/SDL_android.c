@@ -20,6 +20,8 @@
 */
 #include "SDL_internal.h"
 
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "UnusedParameter"
 #ifdef SDL_PLATFORM_ANDROID
 
 #include "SDL_android.h"
@@ -2862,3 +2864,5 @@ bool Android_JNI_OpenFileDialog(
 }
 
 #endif // SDL_PLATFORM_ANDROID
+
+#pragma clang diagnostic pop

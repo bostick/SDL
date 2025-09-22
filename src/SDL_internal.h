@@ -54,11 +54,11 @@
 #define SDL_MAX_SMALL_ALLOC_STACKSIZE          128
 #define SDL_small_alloc(type, count, pisstack) ((*(pisstack) = ((sizeof(type) * (count)) < SDL_MAX_SMALL_ALLOC_STACKSIZE)), (*(pisstack) ? SDL_stack_alloc(type, count) : (type *)SDL_malloc(sizeof(type) * (count))))
 #define SDL_small_free(ptr, isstack) \
-    if ((isstack)) {                 \
+    do { if ((isstack)) {                 \
         SDL_stack_free(ptr);         \
     } else {                         \
         SDL_free(ptr);               \
-    }
+    } } while(false)
 
 #include "SDL_build_config.h"
 

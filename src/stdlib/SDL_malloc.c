@@ -6368,11 +6368,11 @@ static struct
 // Define this if you want to track the number of allocations active
 // #define SDL_TRACK_ALLOCATION_COUNT
 #ifdef SDL_TRACK_ALLOCATION_COUNT
-#define INCREMENT_ALLOCATION_COUNT()    (void)SDL_AtomicIncRef(&s_mem.num_allocations)
-#define DECREMENT_ALLOCATION_COUNT()    (void)SDL_AtomicDecRef(&s_mem.num_allocations)
+#define INCREMENT_ALLOCATION_COUNT()    do { (void)SDL_AtomicIncRef(&s_mem.num_allocations) } while(false)
+#define DECREMENT_ALLOCATION_COUNT()    do { (void)SDL_AtomicDecRef(&s_mem.num_allocations) } while(false)
 #else
-#define INCREMENT_ALLOCATION_COUNT()
-#define DECREMENT_ALLOCATION_COUNT()
+#define INCREMENT_ALLOCATION_COUNT() do {} while(false)
+#define DECREMENT_ALLOCATION_COUNT() do {} while(false)
 #endif
 
 

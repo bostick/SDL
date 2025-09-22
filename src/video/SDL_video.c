@@ -1,3 +1,5 @@
+#pragma clang diagnostic push
+#pragma ide diagnostic ignored "Simplify"
 /*
   Simple DirectMedia Layer
   Copyright (C) 1997-2025 Sam Lantinga <slouken@libsdl.org>
@@ -157,25 +159,25 @@ static VideoBootStrap *bootstrap[] = {
 };
 
 #define CHECK_WINDOW_MAGIC(window, result)                              \
-    CHECK_PARAM(!_this) {                                               \
+    do { CHECK_PARAM(!_this) {                                               \
         SDL_UninitializedVideo();                                       \
         return result;                                                  \
     }                                                                   \
     CHECK_PARAM(!SDL_ObjectValid(window, SDL_OBJECT_TYPE_WINDOW)) {     \
         SDL_SetError("Invalid window");                                 \
         return result;                                                  \
-    }
+    } } while(false)
 
 #define CHECK_DISPLAY_MAGIC(display, result)                            \
-    CHECK_PARAM(!display) {                                             \
+    do { CHECK_PARAM(!display) {                                             \
         return result;                                                  \
-    }                                                                   \
+    } } while(false)                                                                   \
 
 #define CHECK_WINDOW_NOT_POPUP(window, result)                          \
-    CHECK_PARAM(SDL_WINDOW_IS_POPUP(window)) {                          \
+    do { CHECK_PARAM(SDL_WINDOW_IS_POPUP(window)) {                          \
         SDL_SetError("Operation invalid on popup windows");             \
         return result;                                                  \
-    }
+    } } while (false)
 
 #if defined(SDL_PLATFORM_MACOS) && defined(SDL_VIDEO_DRIVER_COCOA)
 // Support for macOS fullscreen spaces, etc.
@@ -3528,7 +3530,7 @@ bool SDL_SetWindowFullscreen(SDL_Window *window, bool fullscreen)
 
 bool SDL_SyncWindow(SDL_Window *window)
 {
-    CHECK_WINDOW_MAGIC(window, false)
+    CHECK_WINDOW_MAGIC(window, false);
 
     if (_this->SyncWindow) {
         return _this->SyncWindow(_this, window);
@@ -5462,7 +5464,7 @@ bool SDL_GL_GetSwapInterval(int *interval)
        return SDL_InvalidParamError("interval");
     }
 
-    *interval = 0;
+    *interval = 1;
 
     if (!_this) {
         return SDL_SetError("no video driver");
@@ -5971,8 +5973,8 @@ bool SDL_ShouldAllowTopmost(void)
 
 bool SDL_ShowWindowSystemMenu(SDL_Window *window, int x, int y)
 {
-    CHECK_WINDOW_MAGIC(window, false)
-    CHECK_WINDOW_NOT_POPUP(window, false)
+    CHECK_WINDOW_MAGIC(window, false);
+    CHECK_WINDOW_NOT_POPUP(window, false);
 
     if (_this->ShowWindowSystemMenu) {
         _this->ShowWindowSystemMenu(window, x, y);
@@ -6329,3 +6331,5 @@ const char *SDL_GetCSSCursorName(SDL_SystemCursor id, const char **fallback_name
     }
 }
 #endif
+
+#pragma clang diagnostic pop

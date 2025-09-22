@@ -156,15 +156,15 @@ typedef void (APIENTRY* PFNGLGETINTEGERVPROC) (GLenum pname, GLint * params);
     _this->egl_data->NAME = NAME;
 #else
 #define LOAD_FUNC(TYPE, NAME)                                                               \
-    _this->egl_data->NAME = (TYPE)SDL_LoadFunction(_this->egl_data->egl_dll_handle, #NAME); \
+    do { _this->egl_data->NAME = (TYPE)SDL_LoadFunction(_this->egl_data->egl_dll_handle, #NAME); \
     if (!_this->egl_data->NAME) {                                                     \
         return SDL_SetError("Could not retrieve EGL function " #NAME);                \
-    }
+    } } while(false)
 #endif
 
 // it is allowed to not have some of the EGL extensions on start - attempts to use them will fail later.
 #define LOAD_FUNC_EGLEXT(TYPE, NAME) \
-    _this->egl_data->NAME = (TYPE)_this->egl_data->eglGetProcAddress(#NAME);
+    do { _this->egl_data->NAME = (TYPE)_this->egl_data->eglGetProcAddress(#NAME); } while(false)
 
 static const char *SDL_EGL_GetErrorName(EGLint eglErrorCode)
 {
@@ -172,21 +172,21 @@ static const char *SDL_EGL_GetErrorName(EGLint eglErrorCode)
     case e:                        \
         return #e;
     switch (eglErrorCode) {
-        SDL_EGL_ERROR_TRANSLATE(EGL_SUCCESS);
-        SDL_EGL_ERROR_TRANSLATE(EGL_NOT_INITIALIZED);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_ACCESS);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_ALLOC);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_ATTRIBUTE);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_CONTEXT);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_CONFIG);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_CURRENT_SURFACE);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_DISPLAY);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_SURFACE);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_MATCH);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_PARAMETER);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_NATIVE_PIXMAP);
-        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_NATIVE_WINDOW);
-        SDL_EGL_ERROR_TRANSLATE(EGL_CONTEXT_LOST);
+        SDL_EGL_ERROR_TRANSLATE(EGL_SUCCESS)
+        SDL_EGL_ERROR_TRANSLATE(EGL_NOT_INITIALIZED)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_ACCESS)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_ALLOC)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_ATTRIBUTE)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_CONTEXT)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_CONFIG)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_CURRENT_SURFACE)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_DISPLAY)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_SURFACE)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_MATCH)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_PARAMETER)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_NATIVE_PIXMAP)
+        SDL_EGL_ERROR_TRANSLATE(EGL_BAD_NATIVE_WINDOW)
+        SDL_EGL_ERROR_TRANSLATE(EGL_CONTEXT_LOST)
     }
     return "";
 }
@@ -1107,7 +1107,7 @@ SDL_GLContext SDL_EGL_CreateContext(SDL_VideoDevice *_this, EGLSurface egl_surfa
         return NULL;
     }
 
-    _this->egl_data->egl_swapinterval = 0;
+    _this->egl_data->egl_swapinterval = 1;
 
     if (!SDL_EGL_MakeCurrent(_this, egl_surface, (SDL_GLContext)egl_context)) {
         // Delete the context
