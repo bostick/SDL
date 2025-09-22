@@ -1661,9 +1661,9 @@ if(ANDROID)
       endif()
     endif()
   endif()
-  if(TARGET SDL3-static)
-    target_link_options(SDL3-static INTERFACE "-Wl,-u,JNI_OnLoad")
-  endif()
+  # if(TARGET SDL3-static)
+  #   target_link_options(SDL3-static INTERFACE "-Wl,-u,JNI_OnLoad")
+  # endif()
 
 elseif(EMSCRIPTEN)
   # Hide noisy warnings that intend to aid mostly during initial stages of porting a new
@@ -4360,3 +4360,33 @@ string(APPEND CMAKE_OBJC_FLAGS " ${CMAKE_C_FLAGS}")
 
 SDL_PrintSummary()
 debug_show_sdl_deps()
+
+
+if(SANITIZE)
+    if(${SANITIZE} STREQUAL "ubsan")
+        target_link_options(SDL3-static
+            PRIVATE
+                -fsanitize=undefined -fno-sanitize=vptr -fno-sanitize-recover=undefined
+        )
+        target_link_options(SDL3-static
+            PRIVATE
+                -fsanitize=undefined -fno-sanitize=vptr -fno-sanitize-recover=undefined
+        )
+    endif()
+endif()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

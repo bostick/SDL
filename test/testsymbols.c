@@ -64,7 +64,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_UnregisterApp(void);
 extern SDL_DECLSPEC void SDLCALL SDL_SetWindowsMessageHook(void);
 #endif
 
-extern SDL_DECLSPEC void SDLCALL JNI_OnLoad(void);
+// extern SDL_DECLSPEC void SDLCALL JNI_OnLoad(void);
 
 const static struct {
     const char *name;
