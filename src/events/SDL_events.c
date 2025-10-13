@@ -791,9 +791,9 @@ int SDL_GetEventDescription(const SDL_Event *event, char *buf, int buflen)
 #undef PRINT_PINCH_EVENT
 
 #define PRINT_PTOUCH_EVENT(event)                                                                             \
-    (void)SDL_snprintf(details, sizeof(details), " (timestamp=%" SDL_PRIu64 " windowid=%u which=%u pen_state=%u x=%g y=%g eraser=%s state=%s)", \
+    do { (void)SDL_snprintf(details, sizeof(details), " (timestamp=%" SDL_PRIu64 " windowid=%u which=%u pen_state=%u x=%g y=%g eraser=%s state=%s)", \
                        event->ptouch.timestamp, (uint)event->ptouch.windowID, (uint)event->ptouch.which, (uint)event->ptouch.pen_state, event->ptouch.x, event->ptouch.y, \
-                       event->ptouch.eraser ? "yes" : "no", event->ptouch.down ? "down" : "up");
+                       event->ptouch.eraser ? "yes" : "no", event->ptouch.down ? "down" : "up"); } while(false)
         SDL_EVENT_CASE(SDL_EVENT_PEN_DOWN)
         PRINT_PTOUCH_EVENT(event);
         break;
@@ -803,8 +803,8 @@ int SDL_GetEventDescription(const SDL_Event *event, char *buf, int buflen)
 #undef PRINT_PTOUCH_EVENT
 
 #define PRINT_PPROXIMITY_EVENT(event)                                                                             \
-    (void)SDL_snprintf(details, sizeof(details), " (timestamp=%" SDL_PRIu64 " windowid=%u which=%u)", \
-                       event->pproximity.timestamp, (uint)event->pproximity.windowID, (uint)event->pproximity.which);
+    do { (void)SDL_snprintf(details, sizeof(details), " (timestamp=%" SDL_PRIu64 " windowid=%u which=%u)", \
+                       event->pproximity.timestamp, (uint)event->pproximity.windowID, (uint)event->pproximity.which); } while(false)
         SDL_EVENT_CASE(SDL_EVENT_PEN_PROXIMITY_IN)
         PRINT_PPROXIMITY_EVENT(event);
         break;
@@ -825,9 +825,9 @@ int SDL_GetEventDescription(const SDL_Event *event, char *buf, int buflen)
         break;
 
 #define PRINT_PBUTTON_EVENT(event)                                                                                                               \
-    (void)SDL_snprintf(details, sizeof(details), " (timestamp=%" SDL_PRIu64 " windowid=%u which=%u pen_state=%u x=%g y=%g button=%u state=%s)", \
+    do { (void)SDL_snprintf(details, sizeof(details), " (timestamp=%" SDL_PRIu64 " windowid=%u which=%u pen_state=%u x=%g y=%g button=%u state=%s)", \
                        event->pbutton.timestamp, (uint)event->pbutton.windowID, (uint)event->pbutton.which, (uint)event->pbutton.pen_state, event->pbutton.x, event->pbutton.y, \
-                       (uint)event->pbutton.button, event->pbutton.down ? "down" : "up");
+                       (uint)event->pbutton.button, event->pbutton.down ? "down" : "up"); } while(false)
         SDL_EVENT_CASE(SDL_EVENT_PEN_BUTTON_DOWN)
         PRINT_PBUTTON_EVENT(event);
         break;

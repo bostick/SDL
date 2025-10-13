@@ -212,9 +212,9 @@ static void SwizzleAudio(const int num_frames, void *dst, const void *src, int c
     }
 
     switch (bitsize) {
-        case 8: CHANNEL_SWIZZLE(8); break;
-        case 16: CHANNEL_SWIZZLE(16); break;
-        case 32: CHANNEL_SWIZZLE(32); break;
+        case 8: CHANNEL_SWIZZLE(8) break;
+        case 16: CHANNEL_SWIZZLE(16) break;
+        case 32: CHANNEL_SWIZZLE(32) break;
         // we don't currently have int64 or double audio datatypes, so no `case 64` for now.
         default: SDL_assert(!"Unsupported audio datatype size"); break;
     }

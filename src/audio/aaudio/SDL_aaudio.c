@@ -48,7 +48,7 @@ struct SDL_PrivateAudioData
 #if 0
 #define LOGI(...) SDL_Log(__VA_ARGS__);
 #else
-#define LOGI(...)
+#define LOGI(...) do {} while(false)
 #endif
 
 #define LIB_AAUDIO_SO "libaaudio.so"

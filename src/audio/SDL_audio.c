@@ -880,20 +880,20 @@ static bool SDL_AudioOpenDevice_Default(SDL_AudioDevice *device)
 static void CompleteAudioEntryPoints(void)
 {
     #define FILL_STUB(x) if (!current_audio.impl.x) { current_audio.impl.x = SDL_Audio##x##_Default; }
-    FILL_STUB(DetectDevices);
-    FILL_STUB(OpenDevice);
-    FILL_STUB(ThreadInit);
-    FILL_STUB(ThreadDeinit);
-    FILL_STUB(WaitDevice);
-    FILL_STUB(PlayDevice);
-    FILL_STUB(GetDeviceBuf);
-    FILL_STUB(WaitRecordingDevice);
-    FILL_STUB(RecordDevice);
-    FILL_STUB(FlushRecording);
-    FILL_STUB(CloseDevice);
-    FILL_STUB(FreeDeviceHandle);
-    FILL_STUB(DeinitializeStart);
-    FILL_STUB(Deinitialize);
+    FILL_STUB(DetectDevices)
+    FILL_STUB(OpenDevice)
+    FILL_STUB(ThreadInit)
+    FILL_STUB(ThreadDeinit)
+    FILL_STUB(WaitDevice)
+    FILL_STUB(PlayDevice)
+    FILL_STUB(GetDeviceBuf)
+    FILL_STUB(WaitRecordingDevice)
+    FILL_STUB(RecordDevice)
+    FILL_STUB(FlushRecording)
+    FILL_STUB(CloseDevice)
+    FILL_STUB(FreeDeviceHandle)
+    FILL_STUB(DeinitializeStart)
+    FILL_STUB(Deinitialize)
     #undef FILL_STUB
 }
 

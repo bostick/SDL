@@ -2372,7 +2372,7 @@ static Uint8 VULKAN_INTERNAL_BindMemoryForBuffer(
 // Resource tracking
 
 #define TRACK_RESOURCE(resource, type, array, count, capacity)  \
-    for (Sint32 i = commandBuffer->count - 1; i >= 0; i -= 1) { \
+    do { for (Sint32 i = commandBuffer->count - 1; i >= 0; i -= 1) { \
         if (commandBuffer->array[i] == resource) {              \
             return;                                             \
         }                                                       \
@@ -2386,7 +2386,7 @@ static Uint8 VULKAN_INTERNAL_BindMemoryForBuffer(
     }                                                           \
     commandBuffer->array[commandBuffer->count] = resource;      \
     commandBuffer->count += 1;                                  \
-    SDL_AtomicIncRef(&resource->referenceCount);
+    SDL_AtomicIncRef(&resource->referenceCount); } while(false)
 
 static void VULKAN_INTERNAL_TrackBuffer(
     VulkanCommandBuffer *commandBuffer,
@@ -2397,7 +2397,7 @@ static void VULKAN_INTERNAL_TrackBuffer(
         VulkanBuffer *,
         usedBuffers,
         usedBufferCount,
-        usedBufferCapacity)
+        usedBufferCapacity);
 }
 
 static void VULKAN_INTERNAL_TrackTexture(
@@ -2409,7 +2409,7 @@ static void VULKAN_INTERNAL_TrackTexture(
         VulkanTexture *,
         usedTextures,
         usedTextureCount,
-        usedTextureCapacity)
+        usedTextureCapacity);
 }
 
 static void VULKAN_INTERNAL_TrackSampler(
@@ -2421,7 +2421,7 @@ static void VULKAN_INTERNAL_TrackSampler(
         VulkanSampler *,
         usedSamplers,
         usedSamplerCount,
-        usedSamplerCapacity)
+        usedSamplerCapacity);
 }
 
 static void VULKAN_INTERNAL_TrackGraphicsPipeline(
@@ -2433,7 +2433,7 @@ static void VULKAN_INTERNAL_TrackGraphicsPipeline(
         VulkanGraphicsPipeline *,
         usedGraphicsPipelines,
         usedGraphicsPipelineCount,
-        usedGraphicsPipelineCapacity)
+        usedGraphicsPipelineCapacity);
 }
 
 static void VULKAN_INTERNAL_TrackComputePipeline(
@@ -2445,7 +2445,7 @@ static void VULKAN_INTERNAL_TrackComputePipeline(
         VulkanComputePipeline *,
         usedComputePipelines,
         usedComputePipelineCount,
-        usedComputePipelineCapacity)
+        usedComputePipelineCapacity);
 }
 
 static void VULKAN_INTERNAL_TrackFramebuffer(
