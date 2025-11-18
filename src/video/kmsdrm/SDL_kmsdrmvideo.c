@@ -1642,7 +1642,7 @@ static void KMSDRM_DestroySurfaces(SDL_VideoDevice *_this, SDL_Window *window)
         /* Issue atomic commit that is blocking and allows modesetting. */
         if (drm_atomic_commit(_this, dispdata, true, true)) {
             SDL_SetError("Failed to issue atomic commit on surfaces destruction.");
-        /* If we failed to set the original mode, try to set the connector prefered mode. */
+        /* If we failed to set the original mode, try to set the connector preferred mode. */
         if (ret && (dispdata->crtc->mode_valid == 0)) {
             ret = KMSDRM_drmModeSetCrtc(viddata->drm_fd, dispdata->crtc->crtc_id,
                     dispdata->crtc->buffer_id, 0, 0, &dispdata->connector->connector_id, 1,
