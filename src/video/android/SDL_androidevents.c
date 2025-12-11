@@ -57,7 +57,8 @@ static void android_egl_context_restore(SDL_Window *window)
 static void android_egl_context_backup(SDL_Window *window)
 {
     if (window) {
-        int interval = 0;
+        // BKB: change this back to 1
+        int interval = 1;
         // Keep a copy of the EGL Context so we can try to restore it when we resume
         SDL_WindowData *data = window->internal;
         data->egl_context = SDL_GL_GetCurrentContext();

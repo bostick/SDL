@@ -5611,7 +5611,8 @@ bool SDL_GL_GetSwapInterval(int *interval)
        return SDL_InvalidParamError("interval");
     }
 
-    *interval = 0;
+    // BKB: change this to 1
+    *interval = 1;
 
     if (!_this) {
         return SDL_SetError("no video driver");
