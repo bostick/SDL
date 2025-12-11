@@ -2324,7 +2324,8 @@ static bool GLES2_RenderPresent(SDL_Renderer *renderer)
 
 static bool GLES2_SetVSync(SDL_Renderer *renderer, const int vsync)
 {
-    int interval = 0;
+    // BKB: change this back to 1
+    int interval = 1;
 
     if (!SDL_GL_SetSwapInterval(vsync)) {
         return false;
