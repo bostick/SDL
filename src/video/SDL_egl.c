@@ -1130,7 +1130,8 @@ SDL_GLContext SDL_EGL_CreateContext(SDL_VideoDevice *_this, EGLSurface egl_surfa
     }
 
     // The default swap interval is 1, according to the spec, but SDL3's policy is to default vsync to off by default.
-    _this->egl_data->egl_swapinterval = 0;
+    // BKB: change this back to 1
+    _this->egl_data->egl_swapinterval = 1;
 
     if (!SDL_EGL_MakeCurrent(_this, egl_surface, (SDL_GLContext)egl_context)) {
         // Delete the context
@@ -1166,7 +1167,9 @@ SDL_GLContext SDL_EGL_CreateContext(SDL_VideoDevice *_this, EGLSurface egl_surfa
         }
     }
 
-    SDL_EGL_SetSwapInterval(_this, 0);  // EGL tends to default to vsync=1. To make this consistent with the rest of SDL, we force it off at startup. Apps can explicitly enable it afterwards.
+    // EGL tends to default to vsync=1. To make this consistent with the rest of SDL, we force it off at startup. Apps can explicitly enable it afterwards.
+    // BKB: change this back to 1
+    SDL_EGL_SetSwapInterval(_this, 1);
 
     return (SDL_GLContext)egl_context;
 }
