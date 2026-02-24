@@ -108,10 +108,10 @@ static int SDL_Haptic_Get_Naxes(Uint16 vid, Uint16 pid)
 static SDL_Haptic *SDL_haptics = NULL;
 
 #define CHECK_HAPTIC_MAGIC(haptic, result)                          \
-    CHECK_PARAM(!SDL_ObjectValid(haptic, SDL_OBJECT_TYPE_HAPTIC)) { \
+    do { CHECK_PARAM(!SDL_ObjectValid(haptic, SDL_OBJECT_TYPE_HAPTIC)) { \
         SDL_InvalidParamError("haptic");                            \
         return result;                                              \
-    }
+    } } while(false)
 
 bool SDL_InitHaptics(void)
 {

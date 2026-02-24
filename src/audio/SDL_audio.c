@@ -882,7 +882,7 @@ static bool SDL_AudioOpenDevice_Default(SDL_AudioDevice *device)
 // Fill in stub functions for unused driver entry points. This lets us blindly call them without having to check for validity first.
 static void CompleteAudioEntryPoints(void)
 {
-    #define FILL_STUB(x) if (!current_audio.impl.x) { current_audio.impl.x = SDL_Audio##x##_Default; }
+    #define FILL_STUB(x) do { if (!current_audio.impl.x) { current_audio.impl.x = SDL_Audio##x##_Default; } } while (false)
     FILL_STUB(DetectDevices);
     FILL_STUB(OpenDevice);
     FILL_STUB(ThreadInit);
@@ -1721,7 +1721,7 @@ void SDL_CloseAudioDevice(SDL_AudioDeviceID devid)
 static SDL_AudioFormat ParseAudioFormatString(const char *string)
 {
     if (string) {
-        #define CHECK_FMT_STRING(x) if (SDL_strcmp(string, #x) == 0) { return SDL_AUDIO_##x; }
+        #define CHECK_FMT_STRING(x) do { if (SDL_strcmp(string, #x) == 0) { return SDL_AUDIO_##x; } } while(false)
         CHECK_FMT_STRING(U8);
         CHECK_FMT_STRING(S8);
         CHECK_FMT_STRING(S16LE);
