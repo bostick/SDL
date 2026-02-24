@@ -50,23 +50,23 @@ this should probably be removed at some point in the future.  --ryan. */
 #define SDL_PROP_TEXTURE_PARENT_POINTER "SDL.internal.texture.parent"
 
 #define CHECK_RENDERER_MAGIC_BUT_NOT_DESTROYED_FLAG(renderer, result)   \
-    CHECK_PARAM(!SDL_ObjectValid(renderer, SDL_OBJECT_TYPE_RENDERER)) { \
+    do { CHECK_PARAM(!SDL_ObjectValid(renderer, SDL_OBJECT_TYPE_RENDERER)) { \
         SDL_InvalidParamError("renderer");                              \
         return result;                                                  \
-    }
+    } } while(false)
 
 #define CHECK_RENDERER_MAGIC(renderer, result)                          \
-    CHECK_RENDERER_MAGIC_BUT_NOT_DESTROYED_FLAG(renderer, result);      \
+    do { CHECK_RENDERER_MAGIC_BUT_NOT_DESTROYED_FLAG(renderer, result);      \
     CHECK_PARAM(renderer->destroyed) {                                  \
         SDL_SetError("Renderer's window has been destroyed, can't use further"); \
         return result;                                                  \
-    }
+    } } while(false)
 
 #define CHECK_TEXTURE_MAGIC(texture, result)                            \
-    CHECK_PARAM(!SDL_ObjectValid(texture, SDL_OBJECT_TYPE_TEXTURE)) {   \
+    do { CHECK_PARAM(!SDL_ObjectValid(texture, SDL_OBJECT_TYPE_TEXTURE)) {   \
         SDL_InvalidParamError("texture");                               \
         return result;                                                  \
-    }
+    } } while(false)
 
 // Predefined blend modes
 #define SDL_COMPOSE_BLENDMODE(srcColorFactor, dstColorFactor, colorOperation, \
@@ -2984,7 +2984,7 @@ bool SDL_SetRenderLogicalPresentation(SDL_Renderer *renderer, int w, int h, SDL_
 
 bool SDL_GetRenderLogicalPresentation(SDL_Renderer *renderer, int *w, int *h, SDL_RendererLogicalPresentation *mode)
 {
-    #define SETVAL(ptr, val) if (ptr) { *ptr = val; }
+    #define SETVAL(ptr, val) do { if (ptr) { *ptr = val; } } while(false)
 
     SETVAL(w, 0);
     SETVAL(h, 0);
