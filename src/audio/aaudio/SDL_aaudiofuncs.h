@@ -23,7 +23,19 @@
 #define SDL_PROC_OPTIONAL(ret, func, params) SDL_PROC(ret, func, params)
 #endif
 
+//
+// yes, this should be empty
+//
 #define SDL_PROC_UNUSED(ret, func, params)
+
+//
+// debugging aid when editing this file stand-alone
+//
+// yes, this should be empty
+//
+#ifndef SDL_PROC
+#define SDL_PROC(ret, func, params)
+#endif // SDL_PROC
 
 SDL_PROC(const char *, AAudio_convertResultToText, (aaudio_result_t returnCode))
 SDL_PROC(const char *, AAudio_convertStreamStateToText, (aaudio_stream_state_t state))

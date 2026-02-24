@@ -42,11 +42,11 @@
 #endif
 
 #define RETIFIOCTLERR(x) \
-    if ((x) == -1) {     \
+    do { if ((x) == -1) {     \
         SDL_free(input); \
         input = NULL;    \
         return NULL;     \
-    }
+    } } while(false)
 
 typedef struct SDL_WSCONS_mouse_input_data SDL_WSCONS_mouse_input_data;
 extern SDL_WSCONS_mouse_input_data *SDL_WSCONS_Init_Mouse(void);

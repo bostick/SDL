@@ -561,7 +561,7 @@ bool windows_ShowModernFileFolderDialog(SDL_FileDialogType dialog_type, const ch
         }
     }
 
-#define CHECK(op) if (!SUCCEEDED(op)) { goto quit; }
+#define CHECK(op) do { if (!SUCCEEDED(op)) { goto quit; } } while(false)
 
     CHECK(WIN_CoInitialize());
 

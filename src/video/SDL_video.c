@@ -159,25 +159,25 @@ static VideoBootStrap *bootstrap[] = {
 };
 
 #define CHECK_WINDOW_MAGIC(window, result)                              \
-    CHECK_PARAM(!_this) {                                               \
+    do { CHECK_PARAM(!_this) {                                               \
         SDL_UninitializedVideo();                                       \
         return result;                                                  \
     }                                                                   \
     CHECK_PARAM(!SDL_ObjectValid(window, SDL_OBJECT_TYPE_WINDOW)) {     \
         SDL_SetError("Invalid window");                                 \
         return result;                                                  \
-    }
+    } } while(false)
 
 #define CHECK_DISPLAY_MAGIC(display, result)                            \
-    CHECK_PARAM(!display) {                                             \
+    do { CHECK_PARAM(!display) {                                             \
         return result;                                                  \
-    }                                                                   \
+    } } while(false)                                                                   \
 
 #define CHECK_WINDOW_NOT_POPUP(window, result)                          \
-    CHECK_PARAM(SDL_WINDOW_IS_POPUP(window)) {                          \
+    do { CHECK_PARAM(SDL_WINDOW_IS_POPUP(window)) {                          \
         SDL_SetError("Operation invalid on popup windows");             \
         return result;                                                  \
-    }
+    } } while (false)
 
 #if defined(SDL_PLATFORM_MACOS) && defined(SDL_VIDEO_DRIVER_COCOA)
 // Support for macOS fullscreen spaces, etc.

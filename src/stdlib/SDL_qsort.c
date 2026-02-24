@@ -273,7 +273,7 @@ typedef struct { char * first; char * last; } stack_entry;
 
 /* and so is the pivoting logic (note: last is inclusive): */
 #define Pivot(swapper,sz)			\
-  if ((size_t)(last-first)>PIVOT_THRESHOLD*sz) mid=pivot_big(first,mid,last,sz,compare,userdata);\
+  do { if ((size_t)(last-first)>PIVOT_THRESHOLD*sz) mid=pivot_big(first,mid,last,sz,compare,userdata);\
   else {	\
     if (compare(userdata,first,mid)<0) {			\
       if (compare(userdata,mid,last)>0) {		\
@@ -289,14 +289,14 @@ typedef struct { char * first; char * last; } stack_entry;
       }						\
     }						\
     first+=sz; last-=sz;			\
-  }
+  } } while(false)
 
 #ifdef DEBUG_QSORT
 #include <stdio.h>
 #endif
 
 /* and so is the partitioning logic: */
-#define Partition(swapper,sz) {			\
+#define Partition(swapper,sz) do {			\
   do {						\
     while (compare(userdata,first,pivot)<0) first+=sz;	\
     while (compare(userdata,pivot,last)<0) last-=sz;	\
@@ -305,7 +305,7 @@ typedef struct { char * first; char * last; } stack_entry;
       first+=sz; last-=sz; }			\
     else if (first==last) { first+=sz; last-=sz; break; }\
   } while (first<=last);			\
-}
+} while(false)
 
 /* and so is the pre-insertion-sort operation of putting
  * the smallest element into place as a sentinel.
@@ -319,16 +319,16 @@ typedef struct { char * first; char * last; } stack_entry;
  * reach subarrays smaller than |limit|).
  */
 #define PreInsertion(swapper,limit,sz)		\
-  first=base;					\
+  do { first=base;					\
   last=first + ((nmemb>limit ? limit : nmemb)-1)*sz;\
   while (last!=base) {				\
     if (compare(userdata,first,last)>0) first=last;	\
     last-=sz; }					\
-  if (first!=base) swapper(first,(char*)base);
+  if (first!=base) swapper(first,(char*)base); } while(false)
 
 /* and so is the insertion sort, in the first two cases: */
 #define Insertion(swapper)			\
-  last=((char*)base)+nmemb*size;		\
+  do { last=((char*)base)+nmemb*size;		\
   for (first=((char*)base)+size;first!=last;first+=size) {	\
     char *test;					\
     /* Find the right place for |first|.	\
@@ -343,7 +343,7 @@ typedef struct { char * first; char * last; } stack_entry;
       memmove(test+size,test,first-test);	\
       memcpy(test,pivot,size);			\
     }						\
-  }
+  } } while(false)
 
 #define SWAP_nonaligned(a,b) { \
   register char *aa=(a),*bb=(b); \
