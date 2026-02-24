@@ -219,7 +219,7 @@ void SDL_SYS_ShowFileDialogWithProperties(SDL_FileDialogType type, SDL_DialogFil
     case SDL_FILEDIALOG_OPENFOLDER:
         folder = true;
         break;
-    };
+    }
 
     if (!SDL_InitBeApp()) {
         SDL_SetError("Couldn't init Be app: %s", SDL_GetError());
