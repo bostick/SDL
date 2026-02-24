@@ -105,7 +105,7 @@ static SDL_Cursor *genericCreateCursor(int shape)
 
     cursor = SDL_calloc(1, sizeof(SDL_Cursor));
     if (cursor) {
-        impl = SDL_calloc(1, sizeof(SDL_CursorData));;
+        impl = SDL_calloc(1, sizeof(SDL_CursorData));
         if (impl == NULL) {
             SDL_free(cursor);
             SDL_OutOfMemory();
