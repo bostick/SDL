@@ -39,8 +39,8 @@
 #define LOGV(...) __android_log_print(ANDROID_LOG_VERBOSE, TAG, __VA_ARGS__)
 #define LOGD(...) __android_log_print(ANDROID_LOG_DEBUG, TAG, __VA_ARGS__)
 #else
-#define LOGV(...)
-#define LOGD(...)
+#define LOGV(...) do {} while (false)
+#define LOGD(...) do {} while (false)
 #endif
 
 #define SDL_JAVA_PREFIX                                 org_libsdl_app

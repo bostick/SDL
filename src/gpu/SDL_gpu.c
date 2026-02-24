@@ -28,10 +28,10 @@
  * -flibit
  */
 #define CHECK_DEVICE_MAGIC(device, retval)  \
-    CHECK_PARAM(device == NULL) {           \
+    do { CHECK_PARAM(device == NULL) {           \
         SDL_SetError("Invalid GPU device"); \
         return retval;                      \
-    }
+    } } while(false)
 
 #define CHECK_COMMAND_BUFFER                                        \
     if (((CommandBufferCommonHeader *)command_buffer)->submitted) { \
@@ -52,13 +52,13 @@
     }
 
 #define CHECK_ANY_PASS_IN_PROGRESS(msg, retval)                                 \
-    if (                                                                        \
+    do { if (                                                                        \
         ((CommandBufferCommonHeader *)command_buffer)->render_pass.in_progress ||  \
         ((CommandBufferCommonHeader *)command_buffer)->compute_pass.in_progress || \
         ((CommandBufferCommonHeader *)command_buffer)->copy_pass.in_progress) {    \
         SDL_assert_release(!msg);                                               \
         return retval;                                                          \
-    }
+    } } while(false)
 
 #define CHECK_RENDERPASS                                     \
     if (!((RenderPass *)render_pass)->in_progress) {                 \
@@ -131,52 +131,52 @@
     }
 
 #define CHECK_TEXTUREFORMAT_ENUM_INVALID(enumval, retval)     \
-    if (enumval <= SDL_GPU_TEXTUREFORMAT_INVALID || enumval >= SDL_GPU_TEXTUREFORMAT_MAX_ENUM_VALUE) {               \
+    do {if (enumval <= SDL_GPU_TEXTUREFORMAT_INVALID || enumval >= SDL_GPU_TEXTUREFORMAT_MAX_ENUM_VALUE) {               \
         SDL_assert_release(!"Invalid texture format enum!"); \
         return retval;                                       \
-    }
+    } } while(false)
 
 #define CHECK_VERTEXELEMENTFORMAT_ENUM_INVALID(enumval, retval)       \
-    if (enumval <= SDL_GPU_VERTEXELEMENTFORMAT_INVALID || enumval >= SDL_GPU_VERTEXELEMENTFORMAT_MAX_ENUM_VALUE) {  \
+    do { if (enumval <= SDL_GPU_VERTEXELEMENTFORMAT_INVALID || enumval >= SDL_GPU_VERTEXELEMENTFORMAT_MAX_ENUM_VALUE) {  \
         SDL_assert_release(!"Invalid vertex format enum!");          \
         return retval;                                               \
-    }
+    } } while(false)
 
 #define CHECK_COMPAREOP_ENUM_INVALID(enumval, retval)                              \
-    if (enumval <= SDL_GPU_COMPAREOP_INVALID || enumval >= SDL_GPU_COMPAREOP_MAX_ENUM_VALUE) { \
+    do { if (enumval <= SDL_GPU_COMPAREOP_INVALID || enumval >= SDL_GPU_COMPAREOP_MAX_ENUM_VALUE) { \
         SDL_assert_release(!"Invalid compare op enum!");                          \
         return retval;                                                            \
-    }
+    } } while(false)
 
 #define CHECK_STENCILOP_ENUM_INVALID(enumval, retval)                                \
-    if (enumval <= SDL_GPU_STENCILOP_INVALID || enumval >= SDL_GPU_STENCILOP_MAX_ENUM_VALUE) { \
+    do { if (enumval <= SDL_GPU_STENCILOP_INVALID || enumval >= SDL_GPU_STENCILOP_MAX_ENUM_VALUE) { \
         SDL_assert_release(!"Invalid stencil op enum!");                            \
         return retval;                                                              \
-    }
+    } } while(false)
 
 #define CHECK_BLENDOP_ENUM_INVALID(enumval, retval)                              \
-    if (enumval <= SDL_GPU_BLENDOP_INVALID || enumval >= SDL_GPU_BLENDOP_MAX_ENUM_VALUE) { \
+    do { if (enumval <= SDL_GPU_BLENDOP_INVALID || enumval >= SDL_GPU_BLENDOP_MAX_ENUM_VALUE) { \
         SDL_assert_release(!"Invalid blend op enum!");                          \
         return retval;                                                          \
-    }
+    } } while(false)
 
 #define CHECK_BLENDFACTOR_ENUM_INVALID(enumval, retval)                                  \
-    if (enumval <= SDL_GPU_BLENDFACTOR_INVALID || enumval >= SDL_GPU_BLENDFACTOR_MAX_ENUM_VALUE) { \
+    do { if (enumval <= SDL_GPU_BLENDFACTOR_INVALID || enumval >= SDL_GPU_BLENDFACTOR_MAX_ENUM_VALUE) { \
         SDL_assert_release(!"Invalid blend factor enum!");                              \
         return retval;                                                                  \
-    }
+    } } while(false)
 
 #define CHECK_SWAPCHAINCOMPOSITION_ENUM_INVALID(enumval, retval)    \
-    if (enumval < 0 || enumval >= SDL_GPU_SWAPCHAINCOMPOSITION_MAX_ENUM_VALUE) {              \
+    do { if (enumval < 0 || enumval >= SDL_GPU_SWAPCHAINCOMPOSITION_MAX_ENUM_VALUE) {              \
         SDL_assert_release(!"Invalid swapchain composition enum!"); \
         return retval;                                              \
-    }
+    } } while(false)
 
 #define CHECK_PRESENTMODE_ENUM_INVALID(enumval, retval)    \
-    if (enumval < 0 || enumval >= SDL_GPU_PRESENTMODE_MAX_ENUM_VALUE) {              \
+    do { if (enumval < 0 || enumval >= SDL_GPU_PRESENTMODE_MAX_ENUM_VALUE) {              \
         SDL_assert_release(!"Invalid present mode enum!"); \
         return retval;                                     \
-    }
+    } } while(false)
 
 #define COMMAND_BUFFER_DEVICE \
     ((CommandBufferCommonHeader *)command_buffer)->device
