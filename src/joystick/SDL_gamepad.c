@@ -151,12 +151,12 @@ struct SDL_Gamepad
 #undef _guarded
 
 #define CHECK_GAMEPAD_MAGIC(gamepad, result)                            \
-    CHECK_PARAM(!SDL_ObjectValid(gamepad, SDL_OBJECT_TYPE_GAMEPAD) ||   \
+    do { CHECK_PARAM(!SDL_ObjectValid(gamepad, SDL_OBJECT_TYPE_GAMEPAD) ||   \
         !SDL_IsJoystickValid(gamepad->joystick)) {                      \
         SDL_InvalidParamError("gamepad");                               \
         SDL_UnlockJoysticks();                                          \
         return result;                                                  \
-    }
+    } } while(false)
 
 static SDL_vidpid_list SDL_allowed_gamepads = {
     SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT, 0, 0, NULL,

@@ -164,15 +164,15 @@ typedef void (APIENTRY* PFNGLGETINTEGERVPROC) (GLenum pname, GLint * params);
     _this->egl_data->NAME = NAME;
 #else
 #define LOAD_FUNC(TYPE, NAME)                                                               \
-    _this->egl_data->NAME = (TYPE)SDL_LoadFunction(_this->egl_data->egl_dll_handle, #NAME); \
+    do { _this->egl_data->NAME = (TYPE)SDL_LoadFunction(_this->egl_data->egl_dll_handle, #NAME); \
     if (!_this->egl_data->NAME) {                                                     \
         return SDL_SetError("Could not retrieve EGL function " #NAME);                \
-    }
+    } } while(false)
 #endif
 
 // it is allowed to not have some of the EGL extensions on start - attempts to use them will fail later.
 #define LOAD_FUNC_EGLEXT(TYPE, NAME) \
-    _this->egl_data->NAME = (TYPE)_this->egl_data->eglGetProcAddress(#NAME);
+    do { _this->egl_data->NAME = (TYPE)_this->egl_data->eglGetProcAddress(#NAME); } while(false)
 
 static const char *SDL_EGL_GetErrorName(EGLint eglErrorCode)
 {

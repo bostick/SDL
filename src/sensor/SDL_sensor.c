@@ -56,11 +56,11 @@ static bool SDL_sensors_initialized;
 static SDL_Sensor *SDL_sensors SDL_GUARDED_BY(SDL_event_lock) = NULL;
 
 #define CHECK_SENSOR_MAGIC(sensor, result)                          \
-    CHECK_PARAM(!SDL_ObjectValid(sensor, SDL_OBJECT_TYPE_SENSOR)) { \
+    do { CHECK_PARAM(!SDL_ObjectValid(sensor, SDL_OBJECT_TYPE_SENSOR)) { \
         SDL_InvalidParamError("sensor");                            \
         SDL_UnlockSensors();                                        \
         return result;                                              \
-    }
+    } } while(false)
 
 bool SDL_SensorsInitialized(void)
 {
