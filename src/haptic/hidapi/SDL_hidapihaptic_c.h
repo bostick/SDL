@@ -43,10 +43,10 @@ struct SDL_HIDAPI_HapticDriver
 {
     bool (*JoystickSupported)(SDL_Joystick *joystick); /* return true if haptic can be opened from the joystick */
     void *(*Open)(SDL_Joystick *joystick); /* returns a driver context allocated with SDL_malloc, or null if it cannot be allocated */
-  
+
     /* functions below need to handle the possibility of a null joystick instance, indicating the absence of the joystick */
     void (*Close)(SDL_HIDAPI_HapticDevice *device); /* cleanup resources allocated during Open, do NOT free driver context created in Open */
-  
+
     /* below mirror SDL_haptic.h effect interfaces */
     int (*NumEffects)(SDL_HIDAPI_HapticDevice *device); /* returns supported number of effects the device can store */
     int (*NumEffectsPlaying)(SDL_HIDAPI_HapticDevice *device); /* returns supported number of effects the device can play concurrently */
