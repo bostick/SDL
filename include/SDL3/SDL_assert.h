@@ -98,7 +98,7 @@ extern "C" {
 #define SDL_ASSERT_LEVEL SDL_DEFAULT_ASSERT_LEVEL
 #elif defined(_DEBUG) || defined(DEBUG) || \
       (defined(__GNUC__) && !defined(__OPTIMIZE__))
-#define SDL_ASSERT_LEVEL 2
+#define SDL_ASSERT_LEVEL 3
 #else
 #define SDL_ASSERT_LEVEL 1
 #endif
