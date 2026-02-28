@@ -4569,3 +4569,33 @@ string(APPEND CMAKE_OBJC_FLAGS " ${CMAKE_C_FLAGS}")
 
 SDL_PrintSummary()
 debug_show_sdl_deps()
+
+
+if(SANITIZE)
+    if(${SANITIZE} STREQUAL "ubsan")
+        target_link_options(SDL3-static
+            PRIVATE
+                -fsanitize=undefined -fno-sanitize=vptr -fno-sanitize-recover=undefined
+        )
+        target_link_options(SDL3-static
+            PRIVATE
+                -fsanitize=undefined -fno-sanitize=vptr -fno-sanitize-recover=undefined
+        )
+    endif()
+endif()
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
