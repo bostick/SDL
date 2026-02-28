@@ -137,7 +137,7 @@ void Android_JNI_HapticStop(int device_id);
 #endif // !SDL_HAPTIC_DISABLED
 
 // Threads
-#include <jni.h>
+//#include <jni.h>
 JNIEnv *Android_JNI_GetEnv(void);
 bool Android_JNI_SetupThread(void);
 

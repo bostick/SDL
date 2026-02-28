@@ -563,15 +563,25 @@ static void register_methods(JNIEnv *env, const char *classname, JNINativeMethod
 }
 
 // Library init
-JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved)
-{
-    JNIEnv *env = NULL;
+//JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved)
+//{
+//    mJavaVM = vm;
+//
+//    setupSynapseGameSdkJniCache(vm);
+//
+//    return JNI_VERSION_1_4;
+//}
+
+
+void setupSDLJniCache(void *vm) {
 
     mJavaVM = vm;
 
+    JNIEnv *env = NULL;
+
     if ((*mJavaVM)->GetEnv(mJavaVM, (void **)&env, JNI_VERSION_1_4) != JNI_OK) {
         __android_log_print(ANDROID_LOG_ERROR, "SDL", "Failed to get JNI Env");
-        return JNI_VERSION_1_4;
+        return;
     }
 
     register_methods(env, "org/libsdl/app/SDLActivity", SDLActivity_tab, SDL_arraysize(SDLActivity_tab));
@@ -585,8 +595,11 @@ JNIEXPORT jint JNICALL JNI_OnLoad(JavaVM *vm, void *reserved)
     register_methods(env, "org/libsdl/app/SDLControllerManager", SDLControllerManager_tab, SDL_arraysize(SDLControllerManager_tab));
 #endif
     register_methods(env, "org/libsdl/app/HIDDeviceManager", HIDDeviceManager_tab, SDL_arraysize(HIDDeviceManager_tab));
+}
 
-    return JNI_VERSION_1_4;
+void teardownSDLJniCache(void *vm) {
+
+    (void)vm;
 }
 
 void checkJNIReady(void)
