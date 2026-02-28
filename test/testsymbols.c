@@ -66,7 +66,7 @@ extern SDL_DECLSPEC void SDLCALL SDL_UnregisterApp(void);
 extern SDL_DECLSPEC void SDLCALL SDL_SetWindowsMessageHook(void);
 #endif
 
-extern SDL_DECLSPEC void SDLCALL JNI_OnLoad(void);
+// extern SDL_DECLSPEC void SDLCALL JNI_OnLoad(void);
 
 #include <SDL3/SDL_openxr.h>
 
