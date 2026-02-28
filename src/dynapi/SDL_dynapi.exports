@@ -1,5 +1,5 @@
 # SDL3.dylib exports
-_JNI_OnLoad
+#_JNI_OnLoad
 _SDL_DYNAPI_entry
 _SDL_AcquireCameraFrame
 _SDL_AcquireGPUCommandBuffer
