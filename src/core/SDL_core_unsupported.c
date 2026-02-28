@@ -188,10 +188,10 @@ bool SDL_IsDeXMode(void)
     return false;
 }
 
-Sint32 JNI_OnLoad(JavaVM *vm, void *reserved)
-{
-    (void)vm;
-    (void)reserved;
-    return 0x00010004; // JNI_VERSION_1_4
-}
+// Sint32 JNI_OnLoad(JavaVM *vm, void *reserved)
+// {
+//     (void)vm;
+//     (void)reserved;
+//     return 0x00010004; // JNI_VERSION_1_4
+// }
 #endif

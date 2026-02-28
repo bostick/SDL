@@ -120,7 +120,7 @@ bool Android_JNI_SuspendScreenSaver(bool suspend);
 void Android_JNI_InitTouch(void);
 
 // Threads
-#include <jni.h>
+//#include <jni.h>
 JNIEnv *Android_JNI_GetEnv(void);
 bool Android_JNI_SetupThread(void);
 

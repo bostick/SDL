@@ -1704,9 +1704,9 @@ if(ANDROID)
       endif()
     endif()
   endif()
-  if(TARGET SDL3-static)
-    target_link_options(SDL3-static INTERFACE "-Wl,-u,JNI_OnLoad")
-  endif()
+  # if(TARGET SDL3-static)
+  #   target_link_options(SDL3-static INTERFACE "-Wl,-u,JNI_OnLoad")
+  # endif()
 
 elseif(EMSCRIPTEN)
   # Hide noisy warnings that intend to aid mostly during initial stages of porting a new
