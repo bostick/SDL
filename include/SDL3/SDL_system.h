@@ -350,6 +350,9 @@ extern SDL_DECLSPEC void * SDLCALL SDL_GetAndroidJNIEnv(void);
  */
 extern SDL_DECLSPEC void * SDLCALL SDL_GetAndroidActivity(void);
 
+extern SDL_DECLSPEC void setupSDLJniCache(void *vm);
+extern SDL_DECLSPEC void teardownSDLJniCache(void *vm);
+
 /**
  * Query Android API level of the current device.
  *
