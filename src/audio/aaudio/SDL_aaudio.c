@@ -45,7 +45,7 @@ struct SDL_PrivateAudioData
 };
 
 // Debug
-#if 0
+#if 1
 #define LOGI(...) SDL_Log(__VA_ARGS__);
 #else
 #define LOGI(...) do {} while(false)
