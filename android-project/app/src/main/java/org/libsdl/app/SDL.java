@@ -1,5 +1,7 @@
 package org.libsdl.app;
 
+import static java.lang.Boolean.FALSE;
+
 import android.app.Activity;
 import android.content.Context;
 
@@ -15,7 +17,12 @@ public class SDL {
     static public void setupJNI() {
         SDLActivity.nativeSetupJNI();
         SDLAudioManager.nativeSetupJNI();
+        //
+        // do not use SDLControllerManager, and minimize changes to source
+        //
+        if (FALSE) {
         SDLControllerManager.nativeSetupJNI();
+        } // FALSE
     }
 
     // This function should be called each time the activity is started
