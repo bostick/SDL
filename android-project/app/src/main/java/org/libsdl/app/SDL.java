@@ -1,5 +1,7 @@
 package org.libsdl.app;
 
+import static java.lang.Boolean.FALSE;
+
 import android.app.Activity;
 import android.content.Context;
 
@@ -42,9 +44,11 @@ public class SDL {
             SDLAudioManager.nativeSetupJNI();
         }
 
+        if (FALSE) { // do not use SDLControllerManager, and minimize changes to source
         if (isSubsystemCompiled(SDL_INIT_CONTROLLER)) {
             SDLControllerManager.nativeSetupJNI();
         }
+        } // FALSE
     }
 
     static public void initialize() {
@@ -60,9 +64,11 @@ public class SDL {
             SDLAudioManager.initialize();
         }
 
+        if (FALSE) { // do not use SDLControllerManager, and minimize changes to source
         if (isSubsystemCompiled(SDL_INIT_CONTROLLER)) {
             SDLControllerManager.initialize();
         }
+        } // FALSE
     }
 
     static boolean isSubsystemInitialized(int subsystem) {

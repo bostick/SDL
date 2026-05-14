@@ -1,5 +1,7 @@
 package org.libsdl.app;
 
+import static java.lang.Boolean.FALSE;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -481,17 +483,21 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         mSingleton = this;
         SDL.setContext(this);
 
+        if (FALSE) { // do not use SDLControllerManager, and minimize changes to source
         if (SDL.isControllerManagerReady()) {
             SDLControllerManager.initializeDeviceListener();
         }
+        } // FALSE
 
         if (SDL.isSubsystemCompiled(SDL.SDL_INIT_VIDEO)) {
             mClipboardHandler = new SDLClipboardHandler();
         }
 
+        if (FALSE) { // do not use HIDDeviceManager, and minimize changes to source
         if (nativeIsHIDAPIEnabled()) {
             mHIDDeviceManager = HIDDeviceManager.acquire(this);
         }
+        } // FALSE
 
         // Set up the surface
         if (SDL.isSubsystemInitialized(SDL.SDL_INIT_VIDEO)) {
@@ -573,9 +579,11 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         Log.v(TAG, "onPause()");
         super.onPause();
 
+        if (FALSE) { // do not use SDLControllerManager, and minimize changes to source
         if (mHIDDeviceManager != null) {
             mHIDDeviceManager.setFrozen(true);
         }
+        } // FALSE
 
         if (!mHasMultiWindow) {
             pauseNativeThread();
@@ -587,9 +595,11 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         Log.v(TAG, "onResume()");
         super.onResume();
 
+        if (FALSE) { // do not use HIDDeviceManager, and minimize changes to source
         if (mHIDDeviceManager != null) {
             mHIDDeviceManager.setFrozen(false);
         }
+        } // FALSE
 
         if (!mHasMultiWindow) {
             resumeNativeThread();
@@ -665,11 +675,13 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
 
         // If we are gaining focus, we can always try to restore our USB devices. If we are losing focus,
         // only try to relinquish them if we don't have background events allowed (for multi-window Android setups).
+        if (FALSE) { // do not use SDLControllerManager, and minimize changes to source
         if (hasFocus || !SDLActivity.nativeGetHintBoolean("SDL_JOYSTICK_ALLOW_BACKGROUND_EVENTS", false)) {
             if (mHIDDeviceManager != null) {
                 mHIDDeviceManager.setFrozen(!hasFocus);
             }
         }
+        } // FALSE
 
         if (SDLActivity.mBrokenLibraries) {
            return;
@@ -732,10 +744,12 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
     protected void onDestroy() {
         Log.v(TAG, "onDestroy()");
 
+        if (FALSE) { // do not use HIDDeviceManager, and minimize changes to source
         if (mHIDDeviceManager != null) {
             HIDDeviceManager.release(mHIDDeviceManager);
             mHIDDeviceManager = null;
         }
+        } // FALSE
 
         SDLAudioManager.release(this);
 
@@ -1619,6 +1633,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         // Furthermore, it's possible a game controller has SOURCE_KEYBOARD and
         // SOURCE_JOYSTICK, while its key events arrive from the keyboard source
         // So, retrieve the device itself and check all of its sources
+        if (FALSE) { // do not use SDLControllerManager, and minimize changes to source
         if (SDL.isControllerManagerReady() && SDLControllerManager.isDeviceSDLJoystick(device)) {
             // Note that we process events with specific key codes here
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -1631,6 +1646,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
                 }
             }
         }
+        } // FALSE
 
         if ((source & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE) {
             if (SDLActivity.isVRHeadset()) {
