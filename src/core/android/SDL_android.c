@@ -591,10 +591,12 @@ void setupSDLJniCache(void *vm) {
 #ifndef SDL_AUDIO_DISABLED
     register_methods(env, "org/libsdl/app/SDLAudioManager", SDLAudioManager_tab, SDL_arraysize(SDLAudioManager_tab));
 #endif
+#if 0 // do not use SDLControllerManager or HIDDeviceManager, and minimize changes to source
 #ifdef SDL_ANDROID_NEED_CONTROLLER_MANAGER
     register_methods(env, "org/libsdl/app/SDLControllerManager", SDLControllerManager_tab, SDL_arraysize(SDLControllerManager_tab));
 #endif
     register_methods(env, "org/libsdl/app/HIDDeviceManager", HIDDeviceManager_tab, SDL_arraysize(HIDDeviceManager_tab));
+#endif // 0
 }
 
 void teardownSDLJniCache(void *vm) {
