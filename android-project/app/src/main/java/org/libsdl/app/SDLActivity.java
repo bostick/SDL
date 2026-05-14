@@ -1,5 +1,7 @@
 package org.libsdl.app;
 
+import static java.lang.Boolean.FALSE;
+
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
@@ -467,7 +469,12 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
 
         mClipboardHandler = new SDLClipboardHandler();
 
+        //
+        // do not use HIDDeviceManager, and minimize changes to source
+        //
+        if (FALSE) {
         mHIDDeviceManager = HIDDeviceManager.acquire(this);
+        } // FALSE
 
         // Set up the surface
         mSurface = createSDLSurface(this);
@@ -544,9 +551,11 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         Log.v(TAG, "onPause()");
         super.onPause();
 
+        if (FALSE) {
         if (mHIDDeviceManager != null) {
             mHIDDeviceManager.setFrozen(true);
         }
+        } // FALSE
         if (!mHasMultiWindow) {
             pauseNativeThread();
         }
@@ -557,9 +566,11 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         Log.v(TAG, "onResume()");
         super.onResume();
 
+        if (FALSE) {
         if (mHIDDeviceManager != null) {
             mHIDDeviceManager.setFrozen(false);
         }
+        } // FALSE
         if (!mHasMultiWindow) {
             resumeNativeThread();
         }
@@ -693,10 +704,12 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
     protected void onDestroy() {
         Log.v(TAG, "onDestroy()");
 
+        if (FALSE) {
         if (mHIDDeviceManager != null) {
             HIDDeviceManager.release(mHIDDeviceManager);
             mHIDDeviceManager = null;
         }
+        } // FALSE
 
         SDLAudioManager.release(this);
 
@@ -1502,6 +1515,10 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
         // So, retrieve the device itself and check all of its sources
         //
         // Echo events (event.getRepeatCount() > 0) should be ignored
+        //
+        // do not use SDLControllerManager, and minimize changes to source
+        //
+        if (FALSE) {
         if (SDLControllerManager.isDeviceSDLJoystick(deviceId) && event.getRepeatCount() == 0) {
             // Note that we process events with specific key codes here
             if (event.getAction() == KeyEvent.ACTION_DOWN) {
@@ -1514,6 +1531,7 @@ public class SDLActivity extends Activity implements View.OnSystemUiVisibilityCh
                 }
             }
         }
+        } // FALSE
 
         if ((source & InputDevice.SOURCE_MOUSE) == InputDevice.SOURCE_MOUSE) {
             if (SDLActivity.isVRHeadset()) {

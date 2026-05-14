@@ -292,6 +292,11 @@ static JNINativeMethod SDLAudioManager_tab[] = {
     { "nativeRemoveAudioDevice", "(ZI)V", SDL_JAVA_AUDIO_INTERFACE(nativeRemoveAudioDevice) }
 };
 
+//
+// do not use SDLControllerManager, and minimize changes to source
+//
+#if 0
+
 // Java class SDLControllerManager
 JNIEXPORT void JNICALL SDL_JAVA_CONTROLLER_INTERFACE(nativeSetupJNI)(
     JNIEnv *env, jclass jcls);
@@ -346,6 +351,8 @@ static JNINativeMethod SDLControllerManager_tab[] = {
     { "nativeAddHaptic", "(ILjava/lang/String;)V", SDL_JAVA_CONTROLLER_INTERFACE(nativeAddHaptic) },
     { "nativeRemoveHaptic", "(I)V", SDL_JAVA_CONTROLLER_INTERFACE(nativeRemoveHaptic) }
 };
+
+#endif // 0
 
 // Uncomment this to log messages entering and exiting methods in this file
 // #define DEBUG_JNI
@@ -599,8 +606,13 @@ void setupSDLJniCache(void *vm) {
     register_methods(env, "org/libsdl/app/SDLActivity", SDLActivity_tab, SDL_arraysize(SDLActivity_tab));
     register_methods(env, "org/libsdl/app/SDLInputConnection", SDLInputConnection_tab, SDL_arraysize(SDLInputConnection_tab));
     register_methods(env, "org/libsdl/app/SDLAudioManager", SDLAudioManager_tab, SDL_arraysize(SDLAudioManager_tab));
+//
+// do not use SDLControllerManager or HIDDeviceManager, and minimize changes to source
+//
+#if 0
     register_methods(env, "org/libsdl/app/SDLControllerManager", SDLControllerManager_tab, SDL_arraysize(SDLControllerManager_tab));
     register_methods(env, "org/libsdl/app/HIDDeviceManager", HIDDeviceManager_tab, SDL_arraysize(HIDDeviceManager_tab));
+#endif // 0
 }
 
 void teardownSDLJniCache(void *vm) {
